@@ -7,7 +7,7 @@ import org.apache.struts2.util.ValueStack;
 import org.apache.struts2.views.annotations.StrutsTag;
 
 /**
- * This is sample. But I will do append additional function to Anchor tag.
+ * I simply extend standard Anchor tag.
  */
 @StrutsTag(
 		name = Anchor.OPEN_TEMPLATE,

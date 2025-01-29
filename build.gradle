@@ -30,25 +30,12 @@ repositories {
 dependencies {
 	implementation libs.commons.logging
 	implementation libs.struts.core
-	implementation(libs.struts.tiles) {
-		exclude(group: 'cglib', module: 'cglib')
-	}
+//	implementation(libs.struts.tiles) {
+//		exclude(group: 'cglib', module: 'cglib')
+//	}
 	compileOnly(libs.tomcat)
 }
-task zip_develop {
-	group 'build'
-	//dependsOn 'buildNeeded'
-	doLast {
-		export_zip true
-	}
-}
-task zip_release {
-	group 'build'
-	//dependsOn 'buildNeeded'
-	doLast {
-		export_zip false
-	}
-}
+// update lib of eclipse Dynamic Web Project from maven jars
 task update_libs {
 	group 'build setup'
 	def dir = 'src/main/webapp/WEB-INF/lib'
@@ -60,12 +47,3 @@ task update_libs {
 		}
 	}
 }
-//task add_libs(type: Zip) {
-//	group 'build'
-//	archiveFileName = zipFile
-//	from compileJava
-//	from processResources
-//	into("$prefix/WEB-INF/lib") {
-//		from configurations.runtimeClasspath
-//	}
-//}\
