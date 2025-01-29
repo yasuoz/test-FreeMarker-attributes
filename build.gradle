@@ -1,0 +1,71 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.akhikhl.gretty:gretty:+'
+	}
+}
+plugins {
+	//id 'eclipse'
+	id 'java'
+	//id 'org.gretty' version '3.0.3'
+}
+//gretty {
+//	servletContainer = 'tomcat9'
+//}
+ext {
+	prefix = ''
+	zipFile = null
+}
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+}
+repositories {
+	mavenCentral()
+}
+dependencies {
+	implementation libs.commons.logging
+	implementation libs.struts.core
+	implementation(libs.struts.tiles) {
+		exclude(group: 'cglib', module: 'cglib')
+	}
+	compileOnly(libs.tomcat)
+}
+task zip_develop {
+	group 'build'
+	//dependsOn 'buildNeeded'
+	doLast {
+		export_zip true
+	}
+}
+task zip_release {
+	group 'build'
+	//dependsOn 'buildNeeded'
+	doLast {
+		export_zip false
+	}
+}
+task update_libs {
+	group 'build setup'
+	def dir = 'src/main/webapp/WEB-INF/lib'
+	doLast {
+		delete fileTree(dir: dir)
+		copy {
+			from configurations.runtimeClasspath
+			into dir
+		}
+	}
+}
+//task add_libs(type: Zip) {
+//	group 'build'
+//	archiveFileName = zipFile
+//	from compileJava
+//	from processResources
+//	into("$prefix/WEB-INF/lib") {
+//		from configurations.runtimeClasspath
+//	}
+//}\
