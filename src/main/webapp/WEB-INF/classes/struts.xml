@@ -6,7 +6,7 @@
 	<bean type="org.apache.struts2.dispatcher.StaticContentLoader" name="stConLoader"
 		class="com.example.test.StaticContentLoader"/>
 	<package name="index" namespace="/" extends="struts-default">
-		<default-class-ref class="com.example.test.TestAction"/>
+		<default-class-ref class="org.apache.struts2.ActionSupport"/>
 		<global-results>
 			<result name="success">/WEB-INF/jsp/test.jsp</result>
 		</global-results>
